@@ -16,7 +16,7 @@
 	<div class="container">
 		<div class="col-md-offset-2 col-md-7">
                         <div class="text-center">
-                            <img class="mb-4" src="<c:url value="/resources/img/ETSEcentrat.png" />" alt="" width="134" height="92" />
+                            <img class="mb-4" src="<c:url value="/resources/img/videogame1.PNG" />" alt="" width="134" height="92" />
                         </div>
 			<h1>Thanks for signing up!</h1>
 			<hr />
@@ -36,6 +36,7 @@
 				</tr>
 			</table>
                         <a class="btn btn-sm btn-info text-white" href="<c:url value="/Web/SignUp" />">Go Back</a>
+                        <a class="btn btn-sm btn-info text-white" href="<c:url value="/Web/FrontPage" />">Go Games</a>
 		</div>
 	</div>
         <jsp:include page="/WEB-INF/views/layout/footer.jsp" />
