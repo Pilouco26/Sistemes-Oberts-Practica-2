@@ -1,0 +1,25 @@
+/* custom-styles.css */
+
+.game-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.game-item {
+    flex: 0 0 calc(33.33% - 10px);
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.game-item:hover {
+    transform: scale(1.05);
+}
+
+.game-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px; /* Add rounded corners to images */
+}

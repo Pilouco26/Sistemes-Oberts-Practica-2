@@ -36,7 +36,9 @@
                     </tr>
                 </table>
                 <a class="btn btn-sm btn-info text-white" href="<c:url value="/Web/SignUp" />">Go Back</a>
-                <a class="btn btn-sm btn-info text-white" href="<c:url value="/Web/FrontPage" />">Go Games</a>
+                <a class="btn btn-sm btn-info text-white" href="<c:url value="/Web/FrontPage" />">Go Games</a>           
+                <a class="btn btn-sm btn-info text-white" href="<c:url value="/Web/GamePage" />">Go Game</a>
+
             </div>
         </div>
         <jsp:include page="/WEB-INF/views/layout/footer.jsp" />

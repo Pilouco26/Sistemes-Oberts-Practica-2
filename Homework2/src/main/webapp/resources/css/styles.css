@@ -1,0 +1,53 @@
+/* Base styles */
+
+body {
+    background-color: #f8f9fa;
+    padding-top: 20px;
+}
+
+.game-details-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.game-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+h2 {
+    color: #007bff;
+}
+
+strong {
+    color: #6c757d;
+}
+
+.price-tag {
+    font-size: 2vw; /* Set font size to 2% of the viewport width */
+    color: #28a745;
+    font-weight: bold;
+    margin-top: 1em; /* Adjust margin using relative units */
+}
+
+/* Media queries for responsiveness */
+
+@media screen and (max-width: 768px) {
+    /* Adjust styles for smaller screens */
+    .game-details-container {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .price-tag {
+        font-size: 3vw;
+        margin-top: 0.5em;
+    }
+}
+
+/* Add more media queries as needed for different screen sizes */

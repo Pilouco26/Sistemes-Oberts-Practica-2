@@ -11,6 +11,7 @@ deim\urv\cat\homework2\model\User.class
 deim\urv\cat\homework2\controller\SignUpFormController.class
 deim\urv\cat\homework2\model\AlertMessage$Type.class
 deim\urv\cat\homework2\service\UserServiceImpl.class
+deim\urv\cat\homework2\controller\GamePageController.class
 deim\urv\cat\homework2\model\SignUpAttempts.class
 deim\urv\cat\homework2\Property.class
 deim\urv\cat\homework2\service\UserService.class
