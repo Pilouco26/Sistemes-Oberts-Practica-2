@@ -23,6 +23,7 @@
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
 
         .game-details-container h2 {
@@ -34,6 +35,19 @@
             border-radius: 8px;
         }
 
+        .details-left {
+            float: left;
+            width: 50%;
+            padding-right: 20px;
+            box-sizing: border-box;
+        }
+
+        .details-right {
+            float: left;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
         .price-tag {
             font-size: 24px;
             color: #28a745;
@@ -41,11 +55,74 @@
         }
 
         #addToCartBtn {
+            clear: both;
             margin-top: 20px;
         }
     </style>
     <script>
-        // ... (your existing JavaScript code)
+        $(document).ready(function () {
+            // Obtén el ID del juego de la URL
+            var gameId = getParameterByName('id');
+
+            // Llama a una función para cargar los detalles del juego
+            loadGameDetails(gameId);
+        });
+
+        function loadGameDetails(gameId) {
+            // Realiza una solicitud AJAX para obtener los detalles del juego
+            $.ajax({
+                url: 'http://localhost:8080/Homework1/rest/api/v1/game/get?id=' + gameId,
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    if (response && response.name) {
+                        // Crea el contenido HTML con los detalles del juego
+                        var gameDetailsHtml = '<div class="details-left">';
+                        gameDetailsHtml += '<img class="game-image" src="' + response.pathImage + '" alt="Game Image">';
+                        // Asume que hay una propiedad "description" en la respuesta JSON
+                        gameDetailsHtml += '<p>Descripció: ' + response.description + '</p>';
+                        gameDetailsHtml += '</div>';
+
+                        gameDetailsHtml += '<div class="details-right">';
+                        gameDetailsHtml += '<h2>' + response.name + '</h2>';
+                        gameDetailsHtml += '<p class="price-tag">Preu: $' + response.price + '</p>';
+                        // Asume que hay propiedades como "type" y "console" en la respuesta JSON
+                        gameDetailsHtml += '<p>Tipus: ' + response.type + '</p>';
+                        gameDetailsHtml += '<p>Consola: ' + response.console + '</p>';
+                        
+                        // Asume que hay una propiedad "addresses" en la respuesta JSON, que es un array
+                        if (response.addresses && response.addresses.length > 0) {
+                            gameDetailsHtml += '<p>Direccions:</p>';
+                            gameDetailsHtml += '<ul>';
+                            response.addresses.forEach(function (address) {
+                                gameDetailsHtml += '<li>' + address + '</li>';
+                            });
+                            gameDetailsHtml += '</ul>';
+                        }
+                        gameDetailsHtml += '</div>';
+
+                        // Agrega los detalles del juego al contenedor
+                        $('#gameDetails').html(gameDetailsHtml);
+                    } else {
+                        console.error('Error al cargar los detalles del juego: Respuesta incorrecta del servidor');
+                    }
+                },
+                error: function () {
+                    console.error('Error al cargar los detalles del juego.');
+                }
+            });
+        }
+
+        // Función para obtener parámetros de la URL
+        function getParameterByName(name) {
+            var url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
     </script>
 </head>
 
