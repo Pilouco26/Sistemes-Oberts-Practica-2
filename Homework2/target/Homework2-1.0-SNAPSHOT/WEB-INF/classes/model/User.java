@@ -2,7 +2,7 @@ package deim.urv.cat.homework2.model;
 
 public class User {
     private String firstName;
-    private String lastName;
+    private String password;
     private String email;
 
     public String getFirstName() {
@@ -13,12 +13,12 @@ public class User {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return fixNull(this.lastName);
+    public String getPassword() {
+        return fixNull(this.password);
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {

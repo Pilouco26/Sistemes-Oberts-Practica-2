@@ -93,6 +93,8 @@
                         };
                         console.log("request vofyd");
                         console.log(JSON.stringify(requestBody));
+                        email = sessionStorage.getItem('savedEmail');
+                        password = sessionStorage.getItem('savedPassword');
                         // Perform the POST request
                         $.ajax({
                             url: apiUrl,
@@ -100,8 +102,8 @@
                             contentType: 'application/json',
                             data: JSON.stringify(requestBody),
                             headers: {
-                                'mailToken': 'sob',
-                                'passwordToken': 'sob'
+                                'mailToken': email,
+                                'passwordToken': password
                             },
                             success: function (response, xhr) {
                                 console.log('Rent Me POST successful:', response);
@@ -122,7 +124,10 @@
                             error: function (response, xhr) {
                                 if (response.status === 201) {
                                     // Handle success for status code 201 (Created)
-                                    alert('Rent Me successful!');
+                                    var rental = JSON.parse(response.responseText);
+                                    console.log('Rent Me successful!', rental);
+                                    alert('Rent Me successful! Identifier: '+400+' Price: ' + rental.price+' Games: '+rental.games);
+                                    sessionStorage.removeItem('cartIds');
                                 } else {
                                     console.log(response);
                                     // Check the HTTP status code for specific error handling
@@ -132,7 +137,7 @@
                                         alert('Unauthorized access. Please log in.');
                                     } else {
                                         // Handle other error cases as needed
-                                        alert('Failed to make Rent Me POST request. Please try again.');
+                                        alert('Failed to make Rent Me POST request. Please try again. '+response.responseText);
                                     }
                                 }
 
