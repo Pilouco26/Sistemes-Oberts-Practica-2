@@ -34,6 +34,57 @@ strong {
     font-weight: bold;
     margin-top: 1em; /* Adjust margin using relative units */
 }
+body {
+    background-color: #f8f9fa;
+}
+
+.game-details-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.game-details-container h2 {
+    color: #007bff;
+}
+
+.game-image {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.details-left {
+    float: left;
+    width: 50%;
+    padding-right: 20px;
+    box-sizing: border-box;
+}
+
+.details-right {
+    float: left;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+.price-tag {
+    font-size: 24px;
+    color: #28a745;
+    margin-top: 10px;
+}
+
+.button-container {
+    text-align: right;
+    margin-top: 20px;
+}
+
+#goBackBtn,
+#rentMeBtn {
+    margin-left: 10px;
+}
 
 /* Media queries for responsiveness */
 

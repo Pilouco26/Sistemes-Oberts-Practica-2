@@ -80,74 +80,7 @@
                 // Event handler for the "Rent Me" button
                 // Event handler for the "Rent Me" button
                 $('#rentMeBtn').on('click', function () {
-                    var cartIds = sessionStorage.getItem("cartIds");
-
-                    // Check if there are items in the cartIds list
-                    console.log(cartIds);
-                    if (cartIds.length > 0) {
-                        // Construct the URL for the POST request
-                        var apiUrl = 'http://localhost:8080/Homework1/rest/api/v1/rental/post';
-                        // Construct the request body
-                        var requestBody = {
-                            ids: JSON.parse(cartIds) // Assuming cartIds is a valid JSON array
-                        };
-                        console.log("request vofyd");
-                        console.log(JSON.stringify(requestBody));
-                        email = sessionStorage.getItem('savedEmail');
-                        password = sessionStorage.getItem('savedPassword');
-                        // Perform the POST request
-                        $.ajax({
-                            url: apiUrl,
-                            type: 'POST',
-                            contentType: 'application/json',
-                            data: JSON.stringify(requestBody),
-                            headers: {
-                                'mailToken': email,
-                                'passwordToken': password
-                            },
-                            success: function (response, xhr) {
-                                console.log('Rent Me POST successful:', response);
-                                // Check the HTTP status code
-                                if (xhr.status === 201) {
-                                    // Handle success for status code 201 (Created)
-                                    alert('Rent Me successful!');
-                                } else if (xhr.status === 401) {
-                                    // Handle unauthorized access (status code 401)
-                                    console.error('Unauthorized access:', response);
-                                    alert('Unauthorized access. Please log in.');
-                                } else {
-                                    // Handle other status codes as needed
-                                    console.error('Rent Me POST request failed with status code:', xhr.status);
-                                    alert('Rent Me failed. Please try again.');
-                                }
-                            },
-                            error: function (response, xhr) {
-                                if (response.status === 201) {
-                                    // Handle success for status code 201 (Created)
-                                    var rental = JSON.parse(response.responseText);
-                                    console.log('Rent Me successful!', rental);
-                                    alert('Rent Me successful! Identifier: '+400+' Price: ' + rental.price+' Games: '+rental.games);
-                                    sessionStorage.removeItem('cartIds');
-                                } else {
-                                    console.log(response);
-                                    // Check the HTTP status code for specific error handling
-                                    if (response.status === 401) {
-                                        // Handle unauthorized access (status code 401)
-                                        console.error('Unauthorized access:', xhr.responseText);
-                                        alert('Unauthorized access. Please log in.');
-                                    } else {
-                                        // Handle other error cases as needed
-                                        alert('Failed to make Rent Me POST request. Please try again. '+response.responseText);
-                                    }
-                                }
-
-                            }
-                        });
-                    } else {
-                        console.log('Cart is empty. Add items before renting.');
-                        // Optionally, you can inform the user that the cart is empty
-                        alert('Cart is empty. Add items before renting.');
-                    }
+                    window.location.href = 'RentConfirm';
                 });
 
             });
