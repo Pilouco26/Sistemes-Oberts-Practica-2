@@ -18,7 +18,7 @@
                 <div class="text-center">
                     <img class="mb-4" src="<c:url value="/resources/img/videogame1.PNG" />" alt="" width="134" height="92" />
                 </div>
-                <h1>Thanks for signing up!</h1>
+                <h1>You are loged! Welcome back ${user.firstName}!</h1>
                 <hr />
                 <p class="text-md-start">
                     We'll keep you posted on the latest news, product updates and exam tips for

@@ -19,7 +19,6 @@
             $(document).ready(function () {
                 // Handle form submission
                 $("form").submit(function (e) {
-                    e.preventDefault(); // Prevent the form from submitting in the traditional way
 
                     // Clear existing error messages
                     $(".panel-body .alert").remove();
@@ -54,12 +53,17 @@
                 });
 
                 // Function to handle both success and error responses
+// Function to handle both success and error responses
                 function handleResponse(xhr) {
                     console.log(xhr.status);
                     if (xhr.status === 202) { // ACCEPTED
                         // Redirect to the success route
                         console.log("exito");
-                        window.location.href = "FrontPage";
+
+                        // Set a timeout to redirect to FrontPage after 1 second
+                        setTimeout(function () {
+                            window.location.href = "FrontPage";
+                        }, 1000);
                     } else if (xhr.status === 401) {
                         // Show an error message for wrong password
                         console.log("401");
@@ -69,6 +73,7 @@
                         e.preventDefault();
                     }
                 }
+                
 
                 // Function to show an error message
                 function showError(message) {
@@ -93,7 +98,7 @@
     <body>
         <div class="container">
             <div class="col-md-offset-2 col-md-7">
-                <h2 class="text-center">Skeleton Structure for Homework 2</h2>
+                <h2 class="text-center">Login</h2>
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <div class="panel-title">Sign Up</div>
