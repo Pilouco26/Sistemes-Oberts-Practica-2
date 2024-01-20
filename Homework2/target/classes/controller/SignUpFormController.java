@@ -69,6 +69,6 @@ public class SignUpFormController {
         log.log(Level.INFO, "Redirecting to the success page.");
         service.addUser(userForm);
         attempts.reset();
-        return "signup-success.jsp";
+        return "front-page-grid.jsp";
     } 
 }

@@ -23,14 +23,13 @@ public class UserForm implements Serializable {
     
     // JSR 303 validation
     @NotBlank
-    @FormParam("lastName")
+    @FormParam("password")
     @MvcBinding
     @Size(min=2, max=30, message = "Last name must be between 2 and 30 characters")
-    private String lastName;
+    private String password;
 
     @NotBlank
     @FormParam("email")
-    @Email(message = "Email should be valid")
     @MvcBinding
     private String email;
     
@@ -42,12 +41,12 @@ public class UserForm implements Serializable {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return fixNull(this.lastName);
+    public String getPassword() {
+        return fixNull(this.password);
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {

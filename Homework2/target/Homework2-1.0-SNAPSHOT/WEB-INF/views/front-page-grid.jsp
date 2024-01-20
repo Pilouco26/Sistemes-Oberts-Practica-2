@@ -93,6 +93,8 @@
                         };
                         console.log("request vofyd");
                         console.log(JSON.stringify(requestBody));
+                        email = sessionStorage.getItem('savedEmail');
+                        password = sessionStorage.getItem('savedPassword');
                         // Perform the POST request
                         $.ajax({
                             url: apiUrl,
@@ -100,8 +102,8 @@
                             contentType: 'application/json',
                             data: JSON.stringify(requestBody),
                             headers: {
-                                'mailToken': 'sob',
-                                'passwordToken': 'sob'
+                                'mailToken': email,
+                                'passwordToken': password
                             },
                             success: function (response, xhr) {
                                 console.log('Rent Me POST successful:', response);
@@ -122,7 +124,10 @@
                             error: function (response, xhr) {
                                 if (response.status === 201) {
                                     // Handle success for status code 201 (Created)
-                                    alert('Rent Me successful!');
+                                    var rental = JSON.parse(response.responseText);
+                                    console.log('Rent Me successful!', rental);
+                                    alert('Rent Me successful! Identifier: '+400+' Price: ' + rental.price+' Games: '+rental.games);
+                                    sessionStorage.removeItem('cartIds');
                                 } else {
                                     console.log(response);
                                     // Check the HTTP status code for specific error handling
@@ -132,7 +137,7 @@
                                         alert('Unauthorized access. Please log in.');
                                     } else {
                                         // Handle other error cases as needed
-                                        alert('Failed to make Rent Me POST request. Please try again.');
+                                        alert('Failed to make Rent Me POST request. Please try again. '+response.responseText);
                                     }
                                 }
 
@@ -150,6 +155,18 @@
     </head>
     <body>
         <div class="container mt-4">
+            <div class="row">
+                <div class="col-md-12 text-right mt-2">
+                    <!-- Reemplaza 'NOMBRE_USUARIO' con la variable que contiene el nombre del usuario después del inicio de sesión -->
+                    <c:if test="${sessionStorage.getItem('loggedUser') ne null}">
+                        <p class="text-success">Benvingut!</p>
+                    </c:if>
+                    <c:if test="${sessionStorage.getItem('loggedUser') eq null}">
+                        <!-- Si el usuario no ha iniciado sesión, muestra el botón de inicio de sesión -->
+                        <a class="btn btn-primary" href="<c:url value='/Web/SignUp' />">Log in</a>
+                    </c:if>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -170,7 +187,11 @@
                     <button id="rentMeBtn" class="btn btn-success btn-block">Rent Me</button>
                 </div>
             </div>
-
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Espacio adicional entre el botón "Rent Me" y la sección de juegos -->
+                </div>
+            </div>
             <div class="game-grid row">
                 <!-- Game items will be dynamically added here -->
             </div>
