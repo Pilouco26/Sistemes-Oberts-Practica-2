@@ -68,7 +68,7 @@
                                 if (response.status === 201) {
                                     // Handle success for status code 201 (Created)
                                     var rental = JSON.parse(response.responseText);
-                                    alert('Rent Me successful! Identifier: ' + 400 + ' Price: ' + rental.price + ' Games: ' + rental.games);
+                                    alert('Rent Me successful! Price: ' + rental.price + ' Games: ' + rental.games);
                                     sessionStorage.removeItem('cartIds');
                                 } else {
                                     // Check the HTTP status code for specific error handling
@@ -92,6 +92,7 @@
             });
 
             function loadGamesDetails(cartIds) {
+                var preu = 0;
                 // Loop a través de los IDs de los juegos en el carrito
                 cartIds.forEach(function (gameId) {
                     // Realiza una solicitud AJAX para obtener los detalles del juego
@@ -101,6 +102,9 @@
                         dataType: 'json',
                         success: function (response) {
                             if (response && response.name) {
+                                preu = preu + response.price;
+                                console.log('Valor de preu:', preu);
+                                $('#totalPrice').text(preu);
                                 // Crea el contenido HTML con los detalles del juego
                                 var gameDetailsHtml = '<div class="game-details-container">';
                                 gameDetailsHtml += '<div class="details-left">';
@@ -110,12 +114,12 @@
 
                                 gameDetailsHtml += '<div class="details-right">';
                                 gameDetailsHtml += '<h2>' + response.name + '</h2>';
-                                gameDetailsHtml += '<p class="price-tag">Precio: $' + response.price + '</p>';
-                                gameDetailsHtml += '<p>Tipo: ' + response.type + '</p>';
+                                gameDetailsHtml += '<p>Preu: $' + response.price + '</p>';
+                                gameDetailsHtml += '<p>Tipus: ' + response.type + '</p>';
                                 gameDetailsHtml += '<p>Consola: ' + response.console + '</p>';
 
                                 if (response.addresses && response.addresses.length > 0) {
-                                    gameDetailsHtml += '<p>Direcciones:</p>';
+                                    gameDetailsHtml += '<p>Adreces disponibles:</p>';
                                     gameDetailsHtml += '<ul>';
                                     response.addresses.forEach(function (address) {
                                         gameDetailsHtml += '<li>' + address + '</li>';
@@ -142,6 +146,7 @@
         <div class="game-details-container">
             <!-- Display the game details here -->
             <div id="gameDetails"></div>
+            <p class="price-tag">Preu total: $<span id="totalPrice">0</span></p>
             <div class="button-container">
                 <button id="goBackBtn" class="btn btn-primary">Go Back</button>
                 <button id="rentMeBtn" class="btn btn-success">Rent Me</button>

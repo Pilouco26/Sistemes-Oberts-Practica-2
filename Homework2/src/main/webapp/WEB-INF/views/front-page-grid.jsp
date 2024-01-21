@@ -12,8 +12,42 @@
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
         <script src="<c:url value="/resources/js/jquery-1.11.1.min.js" />"></script>
+        <style>
+            #loginBtn {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+            }
+            .game-item {
+                /* Ajusta el estilo del contenedor del juego */
+                text-align: center;
+            }
+            .disponible-text {
+                font-size: 15px; 
+            }
+            .availability-circle {
+                display: inline-block;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                margin-right: 5px; /* Espacio entre el círculo y el texto */
+            }
+            .disponibility-green {
+                background-color: green;
+            }
+            .disponibility-red {
+                background-color: red;
+            }
+        </style>
         <script>
             $(document).ready(function () {
+                // Verificar si el usuario ha iniciado sesión
+                if (sessionStorage.getItem('name') !== null){
+                    $('#loginBtn').hide();
+                    var welcomeMessage = 'Benvingut, ' + sessionStorage.getItem('name') + '!';
+                    $('#welcomeMessage').text(welcomeMessage);
+                }
+                
                 // Function to fetch data based on filters
                 function fetchData(type, consoleValue) {
                     // Construct the URL with query parameters
@@ -34,7 +68,12 @@
                                 gameItem += `<img class="mb-4" src="`;
                                 gameItem += game.pathImage;
                                 gameItem += `" alt="" width="100%" />`;
-                                gameItem += '<h4>' + game.name + '</h4>';
+                                gameItem += '<h4 class="game-name">' + game.name + '</h4>';
+                                gameItem += '<h4 class="game-name">$' + game.price + '</h4>';
+                                if (game.stock > 0) 
+                                    gameItem += '<h4><span class="availability-circle disponibility-green"></span> <span class="disponible-text">Disponible</span></h4>';
+                                else
+                                    gameItem += '<h4><span class="availability-circle disponibility-red"></span> <span class="disponible-text">No disponible</span></h4>';
                                 gameItem += '</div>';
 
                                 $('.game-grid').append(gameItem);
@@ -83,7 +122,7 @@
                     window.location.href = 'RentConfirm';
                 });
 
-                $('#login').on('click', function () {
+                $('#loginBtn').on('click', function () {
                     window.location.href = 'SignUp';
                 });
 
@@ -93,6 +132,8 @@
     <body>
         <div class="container mt-4">
             <div class="row">
+                    <button id="loginBtn" class="btn btn-primary">Log In</button>
+                    <div id="welcomeMessage" style="text-align: right; font-size: 18px; margin-top: 10px;"></div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="type">Type</label>
@@ -110,9 +151,6 @@
                 </div>
                 <div class="col-md-2">
                     <button id="rentMeBtn" class="btn btn-success btn-block">Rent Me</button>
-                </div>
-                <div class="col-md-2">
-                    <button id="login" class="btn btn-success btn-block">Log In</button>
                 </div>
             </div>
 

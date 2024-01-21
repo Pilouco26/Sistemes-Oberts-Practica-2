@@ -31,12 +31,13 @@
                     };
 
                     // Store email and password in sessionStorage
+                    sessionStorage.setItem('name', formData.name);
                     sessionStorage.setItem('savedEmail', formData.email);
                     sessionStorage.setItem('savedPassword', formData.password);
 
                     // Make AJAX request to check if the user exists
                     $.ajax({
-                        type: "POST",
+                        type: "GET",
                         url: "http://localhost:8080/Homework1/rest/api/v1/customer/check",
                         contentType: "application/json; charset=utf-8",
                         headers: {

@@ -53,10 +53,36 @@
                 color: #28a745;
                 margin-top: 10px;
             }
+            
+            .disponible-text {
+                font-size: 20px; 
+            }
+            
+            .availability-circle {
+                display: inline-block;
+                width: 17px;
+                height: 17px;
+                border-radius: 50%;
+                margin-right: 5px; /* Espacio entre el círculo y el texto */
+            }
+
+            .disponibility-green {
+                background-color: green;
+            }
+
+            .disponibility-red {
+                background-color: red;
+            }
 
             #addToCartBtn {
                 clear: both;
                 margin-top: 20px;
+            }
+            
+            #loginBtn {
+                position: absolute;
+                top: 10px;
+                right: 10px;
             }
         </style>
         <script>
@@ -66,11 +92,23 @@
 
                 // Llama a una función para cargar los detalles del juego
                 loadGameDetails(gameId);
-
+                
                 // Maneja el clic en el botón "Add to Cart"
                 $('#addToCartBtn').on('click', function () {
                     addToCart(gameId);
                 });
+                
+                if (sessionStorage.getItem('name') !== null){
+                    $('#loginBtn').hide();
+                    var welcomeMessage = 'Benvingut, ' + sessionStorage.getItem('name') + '!';
+                    $('#welcomeMessage').text(welcomeMessage);
+                }
+                else
+                    $('#addToCartBtn').hide();
+                                                    
+                $('#loginBtn').on('click', function () {
+                    window.location.href = 'SignUp';
+                });                              
             });
 
             function loadGameDetails(gameId) {
@@ -91,18 +129,28 @@
                             gameDetailsHtml += '<div class="details-right">';
                             gameDetailsHtml += '<h2>' + response.name + '</h2>';
                             gameDetailsHtml += '<p class="price-tag">Preu: $' + response.price + '</p>';
+                            gameDetailsHtml += '</div>';
+
                             // Asume que hay propiedades como "type" y "console" en la respuesta JSON
                             gameDetailsHtml += '<p>Tipus: ' + response.type + '</p>';
                             gameDetailsHtml += '<p>Consola: ' + response.console + '</p>';
+                            gameDetailsHtml += '</div>';
 
                             // Asume que hay una propiedad "addresses" en la respuesta JSON, que es un array
-                            if (response.addresses && response.addresses.length > 0) {
-                                gameDetailsHtml += '<p>Direccions:</p>';
+                            if (response.stock && response.stock > 0) {
+                                gameDetailsHtml += '<p><span class="availability-circle disponibility-green"></span> <span class="disponible-text">Disponible</span></p>';
+                                gameDetailsHtml += '<p>Adreces disponibles:</p>';
                                 gameDetailsHtml += '<ul>';
                                 response.addresses.forEach(function (address) {
                                     gameDetailsHtml += '<li>' + address + '</li>';
                                 });
                                 gameDetailsHtml += '</ul>';
+                                if (sessionStorage.getItem('name') === null)
+                                    gameDetailsHtml += '<p>Inicia sessió per escollir jocs</p>';
+                            }
+                            else{
+                                gameDetailsHtml += '<p><span class="availability-circle disponibility-red"></span> <span class="disponible-text">No disponible</span></p>';
+                                $('#addToCartBtn').hide();
                             }
                             gameDetailsHtml += '</div>';
 
@@ -157,6 +205,8 @@
 
     <body>
         <div class="game-details-container">
+                <button id="loginBtn" class="btn btn-primary">Log In</button>
+                <div id="welcomeMessage" style="text-align: right; font-size: 18px; margin-top: 10px;"></div>
             <!-- Display the game details here -->
             <div id="gameDetails"></div>
             <button id="addToCartBtn" class="btn btn-primary">Add to Cart</button>
