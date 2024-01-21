@@ -83,6 +83,10 @@
                     window.location.href = 'RentConfirm';
                 });
 
+                $('#login').on('click', function () {
+                    window.location.href = 'SignUp';
+                });
+
             });
         </script>
     </head>
@@ -106,6 +110,9 @@
                 </div>
                 <div class="col-md-2">
                     <button id="rentMeBtn" class="btn btn-success btn-block">Rent Me</button>
+                </div>
+                <div class="col-md-2">
+                    <button id="login" class="btn btn-success btn-block">Log In</button>
                 </div>
             </div>
 
